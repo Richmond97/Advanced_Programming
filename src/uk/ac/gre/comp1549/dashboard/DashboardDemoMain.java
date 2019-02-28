@@ -42,32 +42,53 @@ public class DashboardDemoMain extends JFrame {
     private JTextField txtSpeedValueInput;
     private JTextField txtPetrolValueInput;
     private JButton btnScript;
+    
+    private JTextField txtMilesValueInput; //***
 
     // fields that appear on the dashboard itself
     private DialPanel speedDial;
-    private DialPanel petrolDial;
+    private DialPanel petrolDial; //This needs to change to Temperature of Car ***
     private BarPanel petrolBar;
 
+    //Modified - ***
+    private DialPanel milesdial;
+    
+    
     /**
      * Constructor. Does maybe more work than is good for a constructor.
      */
     public DashboardDemoMain() {
         // Set up the frame for the controller
-        setTitle("Dashboard demonstration controller");
+        setTitle("The Norfolkman - 1993");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
+        //Main Panel used by JFrame
         JPanel panel = new JPanel();
+        
+        //Speed - ***
         panel.add(new JLabel("Speed Value:"));
         txtSpeedValueInput = new JTextField("0", 3);
         panel.add(txtSpeedValueInput);
         DocumentListener speedListener = new SpeedValueListener();
         txtSpeedValueInput.getDocument().addDocumentListener(speedListener);
+        
+        //Fuel - ***
         panel.add(new JLabel("Petrol Value:"));
         txtPetrolValueInput = new JTextField("0", 3);
         panel.add(txtPetrolValueInput);
         DocumentListener petrolListener = new PetrolValueListener();
         txtPetrolValueInput.getDocument().addDocumentListener(petrolListener);
+        
+        //Miles - ***
+        panel.add(new JLabel("Miles Value:"));
+        txtMilesValueInput = new JTextField("0", 3);
+        panel.add(txtMilesValueInput);
+        DocumentListener milesListener = new MilesValueListener();
+        txtMilesValueInput.getDocument().addDocumentListener(milesListener);
+        
+        
+        //Button to Run Script - ***
         btnScript = new JButton("Run XML Script");
 
         // When the button is read the XML script will be run
@@ -222,6 +243,27 @@ public class DashboardDemoMain extends JFrame {
         @Override
         public void changedUpdate(DocumentEvent event) {
         }
+    }
+    
+    /**
+     * Respond to use input in the miles textField
+     */
+    private class MilesValueListener implements DocumentListener {
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+        }
+        
     }
 
     /**
