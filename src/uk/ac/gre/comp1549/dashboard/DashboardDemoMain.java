@@ -43,16 +43,19 @@ public class DashboardDemoMain extends JFrame {
     private JTextField txtPetrolValueInput;
     private JButton btnScript;
     
-    private JTextField txtMilesValueInput; //***
+    //Modified - ***
+    private JTextField txtMilesValueInput; 
+    private JTextField txtTempValueInput;
+    private JTextField txtOilValueInput;
 
     // fields that appear on the dashboard itself
     private DialPanel speedDial;
-    private DialPanel petrolDial; //This needs to change to Temperature of Car ***
     private BarPanel petrolBar;
 
     //Modified - ***
-    private DialPanel milesdial;
-    
+    private DialPanel milesDial;
+    private DialPanel tempdial; //Half Dial
+    private DialPanel oildial;
     
     /**
      * Constructor. Does maybe more work than is good for a constructor.
@@ -66,27 +69,41 @@ public class DashboardDemoMain extends JFrame {
         //Main Panel used by JFrame
         JPanel panel = new JPanel();
         
-        //Speed - ***
-        panel.add(new JLabel("Speed Value:"));
+        //Speed 
+        panel.add(new JLabel("Speed Value (Max Value - 100):"));
         txtSpeedValueInput = new JTextField("0", 3);
         panel.add(txtSpeedValueInput);
         DocumentListener speedListener = new SpeedValueListener();
         txtSpeedValueInput.getDocument().addDocumentListener(speedListener);
         
-        //Fuel - ***
+        //Fuel
         panel.add(new JLabel("Petrol Value:"));
         txtPetrolValueInput = new JTextField("0", 3);
         panel.add(txtPetrolValueInput);
         DocumentListener petrolListener = new PetrolValueListener();
         txtPetrolValueInput.getDocument().addDocumentListener(petrolListener);
+
+        //Temperature - **
+        panel.add(new JLabel("Temp Value:"));
+        txtTempValueInput = new JTextField("0", 3);
+        panel.add(txtTempValueInput);
+        DocumentListener tempListener = new TempValueListener();
+        txtTempValueInput.getDocument().addDocumentListener(tempListener);
         
+        //Oil - **
+        panel.add(new JLabel("Oil Value:"));
+        txtOilValueInput = new JTextField("0", 3);
+        panel.add(txtOilValueInput);
+        DocumentListener oilListener = new OilValueListener();
+        txtOilValueInput.getDocument().addDocumentListener(oilListener);
+        
+                
         //Miles - ***
         panel.add(new JLabel("Miles Value:"));
         txtMilesValueInput = new JTextField("0", 3);
         panel.add(txtMilesValueInput);
         DocumentListener milesListener = new MilesValueListener();
         txtMilesValueInput.getDocument().addDocumentListener(milesListener);
-        
         
         //Button to Run Script - ***
         btnScript = new JButton("Run XML Script");
@@ -111,7 +128,7 @@ public class DashboardDemoMain extends JFrame {
         this.setVisible(true);
 
         // Set up the dashboard screen        
-        JFrame dashboard = new JFrame("Demo dashboard");
+        JFrame dashboard = new JFrame("The Norfolkman - 1993");
         dashboard.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
         dashboard.setLayout(new FlowLayout());
 
@@ -120,11 +137,11 @@ public class DashboardDemoMain extends JFrame {
         speedDial.setLabel("SPEED");
         dashboard.add(speedDial);
 
-        // add the petrol Dial
-        petrolDial = new DialPanel();
-        petrolDial.setLabel("PETROL");
-        petrolDial.setValue(100);
-        dashboard.add(petrolDial);
+        // add the miles Dial
+        milesDial = new DialPanel();
+        milesDial.setLabel("Miles");
+        milesDial.setValue(100);
+        dashboard.add(milesDial);
 
         // add the petrol Bar
         petrolBar = new BarPanel();
@@ -132,6 +149,10 @@ public class DashboardDemoMain extends JFrame {
         petrolBar.setValue(100);
         dashboard.add(petrolBar);
         dashboard.pack();
+        
+        //add Temp dial
+        
+        
 
         // centre the dashboard frame above the control frame
         Point topLeft = this.getLocationOnScreen(); // top left of control frame (this)
@@ -166,7 +187,7 @@ public class DashboardDemoMain extends JFrame {
             DashBoardEventListener dbelPetril = new DashBoardEventListener() {
                 @Override
                 public void processDashBoardEvent(Object originator, DashBoardEvent dbe) {
-                    petrolDial.setValue(Integer.parseInt(dbe.getValue()));
+                    milesDial.setValue(Integer.parseInt(dbe.getValue()));
                     petrolBar.setValue(Integer.parseInt(dbe.getValue()));
                 }
             };
@@ -198,8 +219,19 @@ public class DashboardDemoMain extends JFrame {
     public void setPetrol() {
         try {
             int value = Integer.parseInt(txtPetrolValueInput.getText().trim());
-            petrolDial.setValue(value);
             petrolBar.setValue(value);
+        } catch (NumberFormatException e) {
+        }
+        // don't set the speed if the input can't be parsed
+    }
+    
+       /**
+     * Set the speed value to the value entered in the textfield.
+     */
+    public void setMiles() {
+        try {
+            int value = Integer.parseInt(txtMilesValueInput.getText().trim());
+             milesDial.setValue(value);
         } catch (NumberFormatException e) {
         }
         // don't set the speed if the input can't be parsed
@@ -225,6 +257,25 @@ public class DashboardDemoMain extends JFrame {
         }
     }
 
+    private class MilesValueListener implements DocumentListener {
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            setMiles();
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+           setMiles();
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+        }
+        
+    }
+    
+    
     /**
      * Respond to user input in the Petrol textfield
      */
@@ -244,11 +295,30 @@ public class DashboardDemoMain extends JFrame {
         public void changedUpdate(DocumentEvent event) {
         }
     }
-    
+
     /**
      * Respond to use input in the miles textField
      */
-    private class MilesValueListener implements DocumentListener {
+   
+    private class TempValueListener implements DocumentListener {
+
+        @Override
+        public void insertUpdate(DocumentEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void removeUpdate(DocumentEvent e) {
+            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        }
+
+        @Override
+        public void changedUpdate(DocumentEvent e) {
+
+        }
+    }
+
+    private class OilValueListener implements DocumentListener { //****
 
         @Override
         public void insertUpdate(DocumentEvent e) {
@@ -263,7 +333,6 @@ public class DashboardDemoMain extends JFrame {
         @Override
         public void changedUpdate(DocumentEvent e) {
         }
-        
     }
 
     /**
