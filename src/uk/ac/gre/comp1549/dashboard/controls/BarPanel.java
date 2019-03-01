@@ -2,7 +2,6 @@ package uk.ac.gre.comp1549.dashboard.controls;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
 /**
@@ -12,7 +11,7 @@ import javax.swing.border.BevelBorder;
  * @author COMP1549
  * @version 2.0
  */
-public class BarPanel extends JPanel {
+public class BarPanel extends MainPanel {
 
     private BarDrawPanel bar; // the bar itself
     private JLabel lblTitle; // the label which always appears above the bar
@@ -21,6 +20,11 @@ public class BarPanel extends JPanel {
      * Default constructor
      */
     public BarPanel() {
+        create();
+    }
+
+    @Override
+    public void create() {
         setLayout(new BorderLayout());
         // set the style of the border
         setBorder(new BevelBorder(BevelBorder.LOWERED));
@@ -31,22 +35,14 @@ public class BarPanel extends JPanel {
         add(lblTitle, BorderLayout.NORTH);
         bar = new BarDrawPanel();
         add(bar, BorderLayout.CENTER);
-
     }
 
-    /**
-     * Set the value for the bar
-     *
-     * @param value - value for the bar
-     */
+    @Override
     public void setValue(int value) {
         bar.setValue(value);
     }
 
-    /**
-     *
-     * @param label - label to appear above the dial
-     */
+    @Override
     public void setLabel(String label) {
         lblTitle.setText(label);
     }

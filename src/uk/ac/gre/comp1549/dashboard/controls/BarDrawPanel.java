@@ -85,6 +85,8 @@ public class BarDrawPanel extends JPanel {
      *
      * @param value value
      */
+    
+    //To be overwritten
     public void setValue(int value) {
         // don't let the value go over the maximum for the bar.  But what about the minimum?
         this.value = value > barMaxValue ? (int) barMaxValue : value;
