@@ -11,10 +11,9 @@ import javax.swing.border.BevelBorder;
  * @author COMP1549
  * @version 2.0
  */
-public class DialPanel extends MainPanel {
+public class DialPanel extends MainPanel implements DrawPanelIF {
 
     private DialDrawPanel dial;  // the dial itself
-    private JLabel lblTitle; // the label which always appears above the dial
 
     /**
      * Default constructor

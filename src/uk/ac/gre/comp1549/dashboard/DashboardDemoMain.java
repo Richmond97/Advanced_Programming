@@ -200,7 +200,7 @@ public class DashboardDemoMain extends JFrame {
     /**
      * Set the speed value to the value entered in the textfield.
      */
-    public void setSpeed() {
+    public void setSpeed() { // *** - Should be placed interface 
         try {
             int value = Integer.parseInt(txtSpeedValueInput.getText().trim());
             speedDial.setValue(value);
@@ -212,7 +212,7 @@ public class DashboardDemoMain extends JFrame {
     /**
      * Set the petrol value to the value entered in the textfield.
      */
-    public void setPetrol() {
+    public void setPetrol() { // *** - Should be placed interface
         try {
             int value = Integer.parseInt(txtPetrolValueInput.getText().trim());
             petrolBar.setValue(value);
@@ -224,7 +224,7 @@ public class DashboardDemoMain extends JFrame {
     /**
      * Set the speed value to the value entered in the textfield.
      */
-    public void setMiles() {
+    public void setMiles() { // *** - Should be placed interface 
         try {
             int value = Integer.parseInt(txtMilesValueInput.getText().trim());
             milesDial.setValue(value);

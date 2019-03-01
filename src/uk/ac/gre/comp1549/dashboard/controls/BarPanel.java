@@ -11,11 +11,10 @@ import javax.swing.border.BevelBorder;
  * @author COMP1549
  * @version 2.0
  */
-public class BarPanel extends MainPanel {
+public class BarPanel extends MainPanel implements DrawPanelIF {
 
     private BarDrawPanel bar; // the bar itself
-    private JLabel lblTitle; // the label which always appears above the bar
-
+    
     /**
      * Default constructor
      */

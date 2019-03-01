@@ -32,7 +32,7 @@ public class BarDrawPanel extends JPanel {
      * Default constructor - sets default values
      */
     public BarDrawPanel() {
-        this(200, 20, 8, 100, 0);
+        this(20, 100, 10, 100, 0); // I modified, to Fix back to normal- 200, 20, 8, 100, 0
     }
 
     /**
@@ -59,7 +59,7 @@ public class BarDrawPanel extends JPanel {
      * correct position to indicate the current value
      * @param g - graphics object used to draw on the JPanel
      */
-    @Override
+    @Override //Need to change this to get it working
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g; // get a Graphics2D object to draw with
@@ -74,7 +74,7 @@ public class BarDrawPanel extends JPanel {
         g2.fill(barx);
 
         // draw the value indicator to show the current value
-        g2.setStroke(new BasicStroke(barLength/40, BasicStroke.CAP_SQUARE, 0));
+        g2.setStroke(new BasicStroke(barLength/45, BasicStroke.CAP_SQUARE, 0));
         g2.setPaint(Color.GRAY);
         Line2D valueIndicator = new Line2D.Double(padding + (barLength * value / barMaxValue), padding/2F, padding + (barLength * value / barMaxValue), barHeight + (padding * 1.5F));
         g2.draw(valueIndicator);
