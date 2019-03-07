@@ -11,7 +11,7 @@ import javax.swing.border.BevelBorder;
  * @author COMP1549
  * @version 2.0
  */
-public class BarPanel extends MainPanel implements DrawPanelIF {
+public class BarPanel extends MainPanel {
 
     private BarDrawPanel bar; // the bar itself
     

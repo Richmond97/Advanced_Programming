@@ -13,18 +13,18 @@ import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
 
 /**
- * BarDrawPanel.  Draw a horizontal bar indicator and show its current value
+ * BarDrawPanel. Draw a horizontal bar indicator and show its current value
  *
  * @author COMP1549
  * @version 2.0
  */
-public class BarDrawPanel extends JPanel {
+public class BarDrawPanel extends JPanel implements MyValues {
 
     private int value; // current value - will be indicated on the bar
 
     private int barLength; // length/width of the bar
     private int barHeight; // height of the bar
-    
+
     private int padding; // padding around the bar
     private float barMaxValue; // bar runs from 0 to barMaxValue
 
@@ -32,7 +32,7 @@ public class BarDrawPanel extends JPanel {
      * Default constructor - sets default values
      */
     public BarDrawPanel() {
-        this(20, 100, 10, 100, 0); // I modified, to Fix back to normal- 200, 20, 8, 100, 0
+        this(200, 20, 8, 100, 0); // I modified, to Fix back to normal- 200, 20, 8, 100, 0
     }
 
     /**
@@ -53,10 +53,12 @@ public class BarDrawPanel extends JPanel {
         this.barMaxValue = barMaxValue;
         this.value = value;
     }
+
     /**
-     * This method is called every time the Bar needs drawing for instance
-     * when the value has changed.  It draws the bar itself and the indicator in the
+     * This method is called every time the Bar needs drawing for instance when
+     * the value has changed. It draws the bar itself and the indicator in the
      * correct position to indicate the current value
+     *
      * @param g - graphics object used to draw on the JPanel
      */
     @Override //Need to change this to get it working
@@ -74,9 +76,9 @@ public class BarDrawPanel extends JPanel {
         g2.fill(barx);
 
         // draw the value indicator to show the current value
-        g2.setStroke(new BasicStroke(barLength/45, BasicStroke.CAP_SQUARE, 0));
+        g2.setStroke(new BasicStroke(barLength / 45, BasicStroke.CAP_SQUARE, 0));
         g2.setPaint(Color.GRAY);
-        Line2D valueIndicator = new Line2D.Double(padding + (barLength * value / barMaxValue), padding/2F, padding + (barLength * value / barMaxValue), barHeight + (padding * 1.5F));
+        Line2D valueIndicator = new Line2D.Double(padding + (barLength * value / barMaxValue), padding / 2F, padding + (barLength * value / barMaxValue), barHeight + (padding * 1.5F));
         g2.draw(valueIndicator);
     }
 
@@ -85,11 +87,11 @@ public class BarDrawPanel extends JPanel {
      *
      * @param value value
      */
-    
-    //To be overwritten
+    @Override
     public void setValue(int value) {
         // don't let the value go over the maximum for the bar.  But what about the minimum?
         this.value = value > barMaxValue ? (int) barMaxValue : value;
         repaint(); // causes paintComponent() to be called
     }
+
 }

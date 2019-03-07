@@ -1,12 +1,12 @@
 package uk.ac.gre.comp1549.dashboard.controls;
 
 //Interface to be used by all classes that draw items onto screen
-
-import javax.swing.JLabel;
+import java.awt.Graphics2D;
 
 public interface DrawPanelIF {
-    
-    //Classes that implement should overwrrite these
-    
- 
+
+    public void drawDialEnd(Graphics2D g2, double angle);
+
+    public void drawHand(Graphics2D g2, double angle, double handLength);
 }
+ 

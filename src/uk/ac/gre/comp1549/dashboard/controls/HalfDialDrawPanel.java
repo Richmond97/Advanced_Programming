@@ -1,7 +1,6 @@
 package uk.ac.gre.comp1549.dashboard.controls;
 
 import java.awt.BasicStroke;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -10,16 +9,9 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
-
 import javax.swing.JPanel;
 
-/**
- * DialDrawPanel. Draw a dial and indicate current value.
- *
- * @author COMP1549
- * @version 2.0
- */
-public class DialDrawPanel extends JPanel implements DrawPanelIF, MyValues{
+public class HalfDialDrawPanel extends JPanel implements DrawPanelIF, MyValues {
 
     private int value; // current value - where the hand will point
 
@@ -31,27 +23,14 @@ public class DialDrawPanel extends JPanel implements DrawPanelIF, MyValues{
     /**
      * The extent of the dial. For a full circle this would be 360
      */
-    public static final float DIAL_EXTENT_DEGREES = 270;
+    public static final float DIAL_EXTENT_DEGREES = 180; //Changed to half of a full circle to make it a half dial
 
     /**
      * Where the dial starts being draw from. Due north is 90.
      */
-    public static final float DIAL_START_OFFSET_DEGREES = -45;
+    public static final float DIAL_START_OFFSET_DEGREES = 45;
 
-    /**
-     * Default constructor - sets default values
-     */
-    public DialDrawPanel() {
-        this(50, 10, 100, 0);
-    }
-
-    /**
-     * @param radius - radius of the dial
-     * @param padding - padding outside the dial
-     * @param dialMaxValue - dial runs from 0 to dialMaxValue
-     * @param value - current value - where the hand will point
-     */
-    public DialDrawPanel(int radius, int padding, int dialMaxValue, int value) {
+    public HalfDialDrawPanel(int radius, int padding, int dialMaxValue, int value) {
         // set size of the JPanel to be big enough to hold the dial plus padding
         setPreferredSize(new Dimension(2 * (radius + padding), 2 * (radius + padding)));
         this.radius = radius;
@@ -61,57 +40,41 @@ public class DialDrawPanel extends JPanel implements DrawPanelIF, MyValues{
         handLength = 0.9 * radius; // hand length is fixed at 90% of radius
     }
 
-    /**
-     * This method is called every time the Dial needs drawing for instance
-     * when the value has changed.  It draws the dial itself and the hand in the
-     * correct position to indicate the current value
-     * @param g - graphics object used to draw on the JPanel
-     */
+    public HalfDialDrawPanel() { // We now need to call our constructor
+        this(40, 5, 100, 0); //Setting radius of Dial to 50, padding to 5, Maximum value of dial to 100 & starting value to 0
+    }
+
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g; // get a Graphics2D object to draw with
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         g2.setStroke(new BasicStroke(3, BasicStroke.CAP_ROUND, 0));
-        
+
         // draw centre of the dial as a small circle of fixed size
-        Ellipse2D circle = new Ellipse2D.Double((radius + padding) - 5, (radius + padding) - 5, 10, 10);
+        Ellipse2D circle = new Ellipse2D.Double((radius + padding) - 4, (radius + padding) - 5, 8, 8);
         g2.fill(circle);
-        
+
         // draw the dial itself
         Arc2D arc = new Arc2D.Double(padding, padding, 2 * radius, 2 * radius, DIAL_START_OFFSET_DEGREES, DIAL_EXTENT_DEGREES, Arc2D.Double.OPEN);
         g2.draw(arc);
-        
+
         // draw the little lines at the start and end of the dial
         drawDialEnd(g2, Math.toRadians(DIAL_START_OFFSET_DEGREES));
         drawDialEnd(g2, Math.toRadians(DIAL_START_OFFSET_DEGREES + DIAL_EXTENT_DEGREES));
 
         // draw the hand to indicate the current value
         double angle = Math.toRadians(225 - (value * (DIAL_EXTENT_DEGREES / dialMaxValue)));
-        //Set colour of dial
-        g2.setColor(Color.red);
+
+        g2.drawString("20", 9, 55); // @param 1 - X --- @param 2 - Y 
+
+        g2.drawString("40", 11, 39);        
+        g2.drawString("60", 25, 24);  
+        g2.drawString("80", 44, 19);
 
         drawHand(g2, angle, handLength);
-
-        //put numbers on dial
-        g2.drawString("10", 16, 80);
-        g2.drawString("20", 12, 59);
-        g2.drawString("30", 21, 39);
-        g2.drawString("40", 34, 26);
-        g2.drawString("50", 52, 22);
-        g2.drawString("60", 70, 25);
-        g2.drawString("70", 88, 39);
-        g2.drawString("80", 94, 60);
-        g2.drawString("90", 90, 82);
-
     }
 
-     /**
-     * Draw one of the little lines at the end of the dial
-     * @param g2 - graphics object used to draw on the JPanel
-     * @param  angle - the angle on the dial where the line is to be drawn
-     */
-    
     @Override
     public void drawDialEnd(Graphics2D g2, double angle) {
         // calculate endpoint of line furthest from centre of dial
@@ -124,12 +87,6 @@ public class DialDrawPanel extends JPanel implements DrawPanelIF, MyValues{
         g2.draw(new Line2D.Double(outerEnd, innerEnd));
     }
 
-     /**
-     * Draw the hand on the dial to indicate the current value
-     * @param g2 - graphics object used to draw on the JPanel
-     * @param  angle - the angle on the dial at which the hand is to point
-     * @param handLength - length of the hand
-     */
     @Override
     public void drawHand(Graphics2D g2, double angle, double handLength) {
         // calculate the outer end of the hand
@@ -141,12 +98,6 @@ public class DialDrawPanel extends JPanel implements DrawPanelIF, MyValues{
         g2.draw(new Line2D.Double(center, end));
     }
 
-    /**
-     * Set the value to be displayed on the dial
-     *
-     * @param value value
-     */
-    
     @Override
     public void setValue(int value) {
         // don't let the value go over the maximum for the dial.  But what about the minimum?

@@ -17,6 +17,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import uk.ac.gre.comp1549.dashboard.controls.BarPanel;
 import uk.ac.gre.comp1549.dashboard.controls.DialPanel;
+import uk.ac.gre.comp1549.dashboard.controls.HalfDialPanel;
 import uk.ac.gre.comp1549.dashboard.events.*;
 import uk.ac.gre.comp1549.dashboard.scriptreader.DashboardEventGeneratorFromXML;
 
@@ -54,8 +55,8 @@ public class DashboardDemoMain extends JFrame {
 
     //Modified - ***
     private DialPanel milesDial;
-    private DialPanel tempdial; //Half Dial
-    private DialPanel oildial;
+    private HalfDialPanel tempDial; //Half Dial
+   
 
     /**
      * Constructor. Does maybe more work than is good for a constructor.
@@ -128,24 +129,28 @@ public class DashboardDemoMain extends JFrame {
 
         // Set up the dashboard screen        
         JFrame dashboard = new JFrame("The Norfolkman - 1993");
-        dashboard.setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+        dashboard.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         dashboard.setLayout(new FlowLayout());
 
         // add the speed Dial
         speedDial = new DialPanel();
-        speedDial.setLabel("SPEED");
+        speedDial.setLabel("Speed");
         dashboard.add(speedDial);
 
         // add the miles Dial
         milesDial = new DialPanel();
         milesDial.setLabel("Miles");
-        milesDial.setValue(100);
         dashboard.add(milesDial);
+        
+        // add the Temperature half dial
+        tempDial = new HalfDialPanel();
+        tempDial.setLabel("Temperature");
+        dashboard.add(tempDial);
 
         // add the petrol Bar
         petrolBar = new BarPanel();
-        petrolBar.setLabel("PETROL");
-        petrolBar.setValue(100);
+        petrolBar.setLabel("Petrol");
+        petrolBar.setValue(0);
         dashboard.add(petrolBar);
         dashboard.pack();
 
@@ -232,6 +237,15 @@ public class DashboardDemoMain extends JFrame {
         }
         // don't set the speed if the input can't be parsed
     }
+    
+    public void setTemp(){
+        try {
+            int value = Integer.parseInt(txtTempValueInput.getText().trim());
+            tempDial.setValue(value);
+        } catch (NumberFormatException e){
+            
+        }
+    }
 
     /**
      * Respond to user input in the Speed textfield
@@ -298,17 +312,16 @@ public class DashboardDemoMain extends JFrame {
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            setTemp();
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            setTemp();
         }
 
         @Override
         public void changedUpdate(DocumentEvent e) {
-
         }
     }
 

@@ -6,9 +6,7 @@ import javax.swing.JPanel;
 
 //This will serve as our super class and should be inherited by the other panel classes to make code more flexible
 abstract public class MainPanel extends JPanel {
-    
-    private int value;
-    
+     
     protected JLabel lblTitle; // the label which always appears above the bar
     
     //Abstract methods 
