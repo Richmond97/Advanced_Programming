@@ -61,10 +61,13 @@ public class DashboardDemoMain extends JFrame {
 
     //Half dial
     private HalfDialPanel tempDial; //Half Dial
-    
+
     //Setup dashboard for class
     JFrame dashboard = new JFrame("The Norfolkman - 1993");
-    
+
+    //Main Panel used by JFrame
+    JPanel panel = new JPanel();
+
     /**
      * Constructor. Does maybe more work than is good for a constructor.
      */
@@ -73,45 +76,13 @@ public class DashboardDemoMain extends JFrame {
         setTitle("The Norfolkman - 1993");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-     
 
-        //Main Panel used by JFrame
-        JPanel panel = new JPanel();
-
-        //Speed 
-        panel.add(new JLabel("Speed Value (Max Value - 100):"));
-        txtSpeedValueInput = new JTextField("0", 3);
-        panel.add(txtSpeedValueInput);
-        DocumentListener speedListener = new SpeedValueListener();
-        txtSpeedValueInput.getDocument().addDocumentListener(speedListener);
-
-        //Fuel
-        panel.add(new JLabel("Petrol Value:"));
-        txtPetrolValueInput = new JTextField("0", 3);
-        panel.add(txtPetrolValueInput);
-        DocumentListener petrolListener = new PetrolValueListener();
-        txtPetrolValueInput.getDocument().addDocumentListener(petrolListener);
-
-        //Temperature - **
-        panel.add(new JLabel("Temp Value:"));
-        txtTempValueInput = new JTextField("0", 3);
-        panel.add(txtTempValueInput);
-        DocumentListener tempListener = new TempValueListener();
-        txtTempValueInput.getDocument().addDocumentListener(tempListener);
-
-        //Oil - **
-        panel.add(new JLabel("Oil Value:"));
-        txtOilValueInput = new JTextField("0", 3);
-        panel.add(txtOilValueInput);
-        DocumentListener oilListener = new OilValueListener();
-        txtOilValueInput.getDocument().addDocumentListener(oilListener);
-
-        //Miles - ***
-        panel.add(new JLabel("Miles Value:"));
-        txtMilesValueInput = new JTextField("0", 3);
-        panel.add(txtMilesValueInput);
-        DocumentListener milesListener = new MilesValueListener();
-        txtMilesValueInput.getDocument().addDocumentListener(milesListener);
+        //Call method to add each component to dashboard -- DIALS && JTextFields
+        setup_Oil();
+        setup_Speed();
+        setup_Temp();
+        setup_Miles();
+        setup_Petrol();
 
         //Button to Run Script - ***
         btnScript = new JButton("Run XML Script");
@@ -135,25 +106,15 @@ public class DashboardDemoMain extends JFrame {
         setLocationRelativeTo(null); // display in centre of screen
         this.setVisible(true);
 
-        
-        
-        
         // Set up the dashboard screen        
-        
         dashboard.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         dashboard.setLayout(new FlowLayout());
         dashboard.setResizable(false); //Prevent user form resizing the frame
 
-        setup_Oil();
-        setup_Speed();
-        setup_Temp();
-        setup_Miles();
-        setup_Petrol();
-
         dashboard.pack();
 
+        //Position dashboard above controller JFrame
         set_position();
-
     }
     
     public void set_position(){
@@ -170,6 +131,13 @@ public class DashboardDemoMain extends JFrame {
     }
     
     public void setup_Oil(){
+        //Oil - **
+        panel.add(new JLabel("Oil Value:"));
+        txtOilValueInput = new JTextField("0", 3);
+        panel.add(txtOilValueInput);
+        DocumentListener oilListener = new OilValueListener();
+        txtOilValueInput.getDocument().addDocumentListener(oilListener);
+
          // add the oil bar
         oilBar = new DigitalBarPanel();
         oilBar.setLabel("Oil"); //Fixed
@@ -177,13 +145,28 @@ public class DashboardDemoMain extends JFrame {
     }
     
     public void setup_Speed(){
-         // add the speed Dial
+        //Speed 
+        panel.add(new JLabel("Speed Value (Max Value - 100):"));
+        txtSpeedValueInput = new JTextField("0", 3);
+        panel.add(txtSpeedValueInput);
+        DocumentListener speedListener = new SpeedValueListener();
+        txtSpeedValueInput.getDocument().addDocumentListener(speedListener); 
+
+        // add the speed Dial
         speedDial = new DialPanel();
         speedDial.setLabel("Speed");
         dashboard.add(speedDial);   
     }
     
     public void setup_Temp(){
+        //Temperature - **
+        panel.add(new JLabel("Temp Value:"));
+        txtTempValueInput = new JTextField("0", 3);
+        panel.add(txtTempValueInput);
+        DocumentListener tempListener = new TempValueListener();
+        txtTempValueInput.getDocument().addDocumentListener(tempListener);
+        
+        
      // add the Temperature half dial
         tempDial = new HalfDialPanel();
         tempDial.setLabel("Temperature");
@@ -191,6 +174,13 @@ public class DashboardDemoMain extends JFrame {
     }
     
     public void setup_Miles(){
+        //Miles - ***
+        panel.add(new JLabel("Miles Value:"));
+        txtMilesValueInput = new JTextField("0", 3);
+        panel.add(txtMilesValueInput);
+        DocumentListener milesListener = new MilesValueListener();
+        txtMilesValueInput.getDocument().addDocumentListener(milesListener);
+
         // add the miles Dial
         milesDial = new DialPanel();
         milesDial.setLabel("Miles");
@@ -198,6 +188,14 @@ public class DashboardDemoMain extends JFrame {
     }
     
     public void setup_Petrol(){
+        
+        //Fuel
+        panel.add(new JLabel("Petrol Value:"));
+        txtPetrolValueInput = new JTextField("0", 3);
+        panel.add(txtPetrolValueInput);
+        DocumentListener petrolListener = new PetrolValueListener();
+        txtPetrolValueInput.getDocument().addDocumentListener(petrolListener);
+        
         // add the petrol Bar
         petrolBar = new BarPanel();
         petrolBar.setLabel("Petrol");
