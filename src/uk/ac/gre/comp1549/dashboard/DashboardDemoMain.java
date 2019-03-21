@@ -1,5 +1,6 @@
 package uk.ac.gre.comp1549.dashboard;
 
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
@@ -17,6 +18,7 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import uk.ac.gre.comp1549.dashboard.controls.BarPanel;
 import uk.ac.gre.comp1549.dashboard.controls.DialPanel;
+import uk.ac.gre.comp1549.dashboard.controls.DigitalBarPanel;
 import uk.ac.gre.comp1549.dashboard.controls.HalfDialPanel;
 import uk.ac.gre.comp1549.dashboard.events.*;
 import uk.ac.gre.comp1549.dashboard.scriptreader.DashboardEventGeneratorFromXML;
@@ -49,13 +51,17 @@ public class DashboardDemoMain extends JFrame {
     private JTextField txtTempValueInput;
     private JTextField txtOilValueInput;
 
-    // fields that appear on the dashboard itself
+    //Full dials
     private DialPanel speedDial;
-    private BarPanel petrolBar;
-
-    //Modified - ***
     private DialPanel milesDial;
+    
+    //Bar Panels
+    private BarPanel petrolBar;
+    private DigitalBarPanel oilBar;
+
+    //Half dial
     private HalfDialPanel tempDial; //Half Dial
+    
    
 
     /**
@@ -66,6 +72,7 @@ public class DashboardDemoMain extends JFrame {
         setTitle("The Norfolkman - 1993");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
 
         //Main Panel used by JFrame
         JPanel panel = new JPanel();
@@ -131,6 +138,7 @@ public class DashboardDemoMain extends JFrame {
         JFrame dashboard = new JFrame("The Norfolkman - 1993");
         dashboard.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         dashboard.setLayout(new FlowLayout());
+        dashboard.setResizable(false); //Prevent user form resizing the frame
 
         // add the speed Dial
         speedDial = new DialPanel();
@@ -152,6 +160,12 @@ public class DashboardDemoMain extends JFrame {
         petrolBar.setLabel("Petrol");
         petrolBar.setValue(0);
         dashboard.add(petrolBar);
+        
+        // add the oil bar
+        oilBar = new DigitalBarPanel();
+       // oilBar.setLabel("Oil"); WHen I uncomment this it gives me a problem --- It also doesn't add the digital dial to the frame
+        dashboard.add(oilBar);
+        
         dashboard.pack();
 
         //add Temp dial
@@ -246,6 +260,14 @@ public class DashboardDemoMain extends JFrame {
             
         }
     }
+    
+    public void setOil(){
+        try {
+            int value = Integer.parseInt(txtOilValueInput.getText().trim()); //Get input form Oil textfield convert it to an int and then set it as the value
+            oilBar.setValue(value);
+        } catch (NumberFormatException e) { //Will be caught if the conversion from int to string fails
+        }
+    }
 
     /**
      * Respond to user input in the Speed textfield
@@ -329,24 +351,23 @@ public class DashboardDemoMain extends JFrame {
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            setOil(); //Sets action listener to correspond with input being took from the oil textfield
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
-            throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            setOil();
         }
 
         @Override
         public void changedUpdate(DocumentEvent e) {
         }
     }
-
     /**
      *
      * @param args - unused
      */
     public static void main(String[] args) {
-        final DashboardDemoMain me = new DashboardDemoMain();
+      final DashboardDemoMain me = new DashboardDemoMain();
     }
 }

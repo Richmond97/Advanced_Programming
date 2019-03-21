@@ -1,6 +1,7 @@
 package uk.ac.gre.comp1549.dashboard.controls;
 
 import java.awt.BasicStroke;
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -65,6 +66,8 @@ public class HalfDialDrawPanel extends JPanel implements DrawPanelIF, MyValues {
 
         // draw the hand to indicate the current value
         double angle = Math.toRadians(225 - (value * (DIAL_EXTENT_DEGREES / dialMaxValue)));
+        
+        g2.setColor(Color.cyan);
 
         g2.drawString("20", 9, 55); // @param 1 - X --- @param 2 - Y 
 

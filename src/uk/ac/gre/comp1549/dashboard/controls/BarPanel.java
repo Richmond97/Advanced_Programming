@@ -31,9 +31,9 @@ public class BarPanel extends MainPanel {
         // position the label above the bar 
         lblTitle = new JLabel();
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
-        add(lblTitle, BorderLayout.NORTH);
+        add(lblTitle, BorderLayout.NORTH); 
         bar = new BarDrawPanel();
-        add(bar, BorderLayout.CENTER);
+        add(bar, BorderLayout.CENTER); //Change to CENTER
     }
 
     @Override
