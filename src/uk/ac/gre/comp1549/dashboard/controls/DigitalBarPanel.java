@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package uk.ac.gre.comp1549.dashboard.controls;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
 
-/**
- *
- * @author The Emperor
- */
 public class DigitalBarPanel extends MainPanel {
     
     private DigitalBarDrawPanel bar;
+    int value;
     
       @Override
     public void create(){
@@ -31,15 +23,16 @@ public class DigitalBarPanel extends MainPanel {
         bar = new DigitalBarDrawPanel();
         add(bar, BorderLayout.CENTER);
     }
-    
-    
+   
      @Override
     public void setValue(int value) {
+        this.value = value;
         bar.setValue(value);
     }
     
      @Override
     public void setLabel(String label) {
+        lblTitle = new JLabel();
         lblTitle.setText(label);
     }
 }

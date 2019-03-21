@@ -62,8 +62,9 @@ public class DashboardDemoMain extends JFrame {
     //Half dial
     private HalfDialPanel tempDial; //Half Dial
     
-   
-
+    //Setup dashboard for class
+    JFrame dashboard = new JFrame("The Norfolkman - 1993");
+    
     /**
      * Constructor. Does maybe more work than is good for a constructor.
      */
@@ -72,7 +73,7 @@ public class DashboardDemoMain extends JFrame {
         setTitle("The Norfolkman - 1993");
         setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setResizable(false);
+     
 
         //Main Panel used by JFrame
         JPanel panel = new JPanel();
@@ -134,41 +135,28 @@ public class DashboardDemoMain extends JFrame {
         setLocationRelativeTo(null); // display in centre of screen
         this.setVisible(true);
 
+        
+        
+        
         // Set up the dashboard screen        
-        JFrame dashboard = new JFrame("The Norfolkman - 1993");
+        
         dashboard.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         dashboard.setLayout(new FlowLayout());
         dashboard.setResizable(false); //Prevent user form resizing the frame
 
-        // add the speed Dial
-        speedDial = new DialPanel();
-        speedDial.setLabel("Speed");
-        dashboard.add(speedDial);
+        setup_Oil();
+        setup_Speed();
+        setup_Temp();
+        setup_Miles();
+        setup_Petrol();
 
-        // add the miles Dial
-        milesDial = new DialPanel();
-        milesDial.setLabel("Miles");
-        dashboard.add(milesDial);
-        
-        // add the Temperature half dial
-        tempDial = new HalfDialPanel();
-        tempDial.setLabel("Temperature");
-        dashboard.add(tempDial);
-
-        // add the petrol Bar
-        petrolBar = new BarPanel();
-        petrolBar.setLabel("Petrol");
-        petrolBar.setValue(0);
-        dashboard.add(petrolBar);
-        
-        // add the oil bar
-        oilBar = new DigitalBarPanel();
-       // oilBar.setLabel("Oil"); WHen I uncomment this it gives me a problem --- It also doesn't add the digital dial to the frame
-        dashboard.add(oilBar);
-        
         dashboard.pack();
 
-        //add Temp dial
+        set_position();
+
+    }
+    
+    public void set_position(){
         // centre the dashboard frame above the control frame
         Point topLeft = this.getLocationOnScreen(); // top left of control frame (this)
         int hControl = this.getHeight(); // height of control frame (this)
@@ -180,7 +168,42 @@ public class DashboardDemoMain extends JFrame {
         dashboard.setLocation(p2);
         dashboard.setVisible(true);
     }
-
+    
+    public void setup_Oil(){
+         // add the oil bar
+        oilBar = new DigitalBarPanel();
+        oilBar.setLabel("Oil"); //Fixed
+        dashboard.add(oilBar);
+    }
+    
+    public void setup_Speed(){
+         // add the speed Dial
+        speedDial = new DialPanel();
+        speedDial.setLabel("Speed");
+        dashboard.add(speedDial);   
+    }
+    
+    public void setup_Temp(){
+     // add the Temperature half dial
+        tempDial = new HalfDialPanel();
+        tempDial.setLabel("Temperature");
+        dashboard.add(tempDial);   
+    }
+    
+    public void setup_Miles(){
+        // add the miles Dial
+        milesDial = new DialPanel();
+        milesDial.setLabel("Miles");
+        dashboard.add(milesDial);
+    }
+    
+    public void setup_Petrol(){
+        // add the petrol Bar
+        petrolBar = new BarPanel();
+        petrolBar.setLabel("Petrol");
+        petrolBar.setValue(0);
+        dashboard.add(petrolBar);
+    }
     /**
      * Run the XML script file which generates events for the dashboard
      * indicators

@@ -26,7 +26,7 @@ public class DigitalBarDrawPanel extends JPanel implements MyValues{
   
     
     public DigitalBarDrawPanel() { //Non Param constructor calls constructor with 5 params right below it
-        this(100, 20, 8, 100, 0);
+        this(80, 20, 8, 100, 0);
     }
     /**
      *
@@ -60,17 +60,16 @@ public class DigitalBarDrawPanel extends JPanel implements MyValues{
         Rectangle2D barx = new Rectangle2D.Double(padding, padding, barLength, barHeight);
         g2.setPaint(Color.BLACK); //Sets color of bar to black to give a digital clock feel
         g2.fill(barx);
-        
+
         Font barFont = new Font("Unispace", Font.BOLD, 18); //Define digital like font to be used on bar
         g2.setPaint(Color.cyan);
-        g2.drawString(" amnt.", 92, 25);
+        //g2.drawString(" amnt.", 92, 25);
         g2.setFont(barFont); //Set bar font
-        
-        
+
         // draw the value indicator to show the current value
-        g2.drawString(String.valueOf(value *100), 9, 25); 
+        g2.drawString(String.valueOf(value * 100), 9, 25);
     }
-      
+
    @Override
     public void setValue(int value) {
         // don't let the value go over the maximum for the bar.  But what about the minimum?
