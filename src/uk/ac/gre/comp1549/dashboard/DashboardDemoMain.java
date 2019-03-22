@@ -141,12 +141,13 @@ public class DashboardDemoMain extends JFrame {
          // add the oil bar
         oilBar = new DigitalBarPanel();
         oilBar.setLabel("Oil"); //Fixed
+        //oilBar.setValue(0); //This throws a null pointer exception
         dashboard.add(oilBar);
     }
     
     public void setup_Speed(){
         //Speed 
-        panel.add(new JLabel("Speed Value (Max Value - 100):"));
+        panel.add(new JLabel("Speed Value:"));
         txtSpeedValueInput = new JTextField("0", 3);
         panel.add(txtSpeedValueInput);
         DocumentListener speedListener = new SpeedValueListener();
