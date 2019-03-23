@@ -1,31 +1,23 @@
-package uk.ac.gre.comp1549.dashboard.controls;
+package uk.ac.gre.comp1549.dashboard.halfDials;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
+import uk.ac.gre.comp1549.dashboard.controls.MainPanel;
 
-/**
- * DialPanel.  Container for DialDrawPanel to hold dial and label.
- * If a label is not needed DialDrawPanel an be used on its own
- *
- * @author COMP1549
- * @version 2.0
- */
-public class DialPanel extends MainPanel {
 
-    private DialDrawPanel dial;  // the dial itself
+public class HalfDialPanel extends MainPanel {
+    
+    private HalfDialDrawPanel dial;
 
-    /**
-     * Default constructor
-     */
-    public DialPanel() {
+    public HalfDialPanel() {
         create();
     }
-    
+
     @Override
-    public void create(){
+    public void create() {
         setLayout(new BorderLayout());
-        
+
         // set the style of the border
         setBorder(new BevelBorder(BevelBorder.LOWERED));
 
@@ -33,16 +25,16 @@ public class DialPanel extends MainPanel {
         lblTitle = new JLabel();
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
         add(lblTitle, BorderLayout.NORTH);
-        dial = new DialDrawPanel();
+        dial = new HalfDialDrawPanel();
         add(dial, BorderLayout.CENTER);
     }
 
-   @Override
+    @Override
     public void setValue(int value) {
         dial.setValue(value);
     }
 
-   @Override
+    @Override
     public void setLabel(String label) {
         lblTitle.setText(label);
     }

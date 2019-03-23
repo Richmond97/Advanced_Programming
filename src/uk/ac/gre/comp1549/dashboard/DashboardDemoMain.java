@@ -16,10 +16,10 @@ import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import uk.ac.gre.comp1549.dashboard.controls.BarPanel;
-import uk.ac.gre.comp1549.dashboard.controls.DialPanel;
-import uk.ac.gre.comp1549.dashboard.controls.DigitalBarPanel;
-import uk.ac.gre.comp1549.dashboard.controls.HalfDialPanel;
+import uk.ac.gre.comp1549.dashboard.barPanels.*;
+import uk.ac.gre.comp1549.dashboard.fullDials.*;
+import uk.ac.gre.comp1549.dashboard.digitalDials.*;
+import uk.ac.gre.comp1549.dashboard.halfDials.HalfDialPanel;
 import uk.ac.gre.comp1549.dashboard.events.*;
 import uk.ac.gre.comp1549.dashboard.scriptreader.DashboardEventGeneratorFromXML;
 
@@ -132,7 +132,7 @@ public class DashboardDemoMain extends JFrame {
     
     public void setup_Oil(){
         //Oil - **
-        panel.add(new JLabel("Oil Value:"));
+        panel.add(new JLabel("Oil Value:")); //Set name of text field to be shown to user
         txtOilValueInput = new JTextField("0", 3);
         panel.add(txtOilValueInput);
         DocumentListener oilListener = new OilValueListener();

@@ -1,4 +1,4 @@
-package uk.ac.gre.comp1549.dashboard.controls;
+package uk.ac.gre.comp1549.dashboard.interfaces;
 
 //Interface to be used by all classes that draw items onto screen
 import java.awt.Graphics2D;

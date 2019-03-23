@@ -1,20 +1,20 @@
-package uk.ac.gre.comp1549.dashboard.controls;
+package uk.ac.gre.comp1549.dashboard.digitalDials;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
+import uk.ac.gre.comp1549.dashboard.controls.MainPanel;
 
-
-public class HalfDialPanel extends MainPanel {
+public class DigitalBarPanel extends MainPanel {
     
-    private HalfDialDrawPanel dial;
-
-    public HalfDialPanel() {
+    private DigitalBarDrawPanel bar; // the bar itself
+    
+    public DigitalBarPanel(){
         create();
     }
-
-    @Override
-    public void create() {
+    
+      @Override
+    public void create(){
         setLayout(new BorderLayout());
 
         // set the style of the border
@@ -24,15 +24,15 @@ public class HalfDialPanel extends MainPanel {
         lblTitle = new JLabel();
         lblTitle.setHorizontalAlignment(JLabel.CENTER);
         add(lblTitle, BorderLayout.NORTH);
-        dial = new HalfDialDrawPanel();
-        add(dial, BorderLayout.CENTER);
+        bar = new DigitalBarDrawPanel();
+        add(bar, BorderLayout.CENTER);
     }
-
-    @Override
+   
+     @Override
     public void setValue(int value) {
-        dial.setValue(value);
+        bar.setValue(value);
     }
-
+    
     @Override
     public void setLabel(String label) {
         lblTitle.setText(label);

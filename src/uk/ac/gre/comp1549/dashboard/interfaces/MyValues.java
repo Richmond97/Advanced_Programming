@@ -1,4 +1,4 @@
-package uk.ac.gre.comp1549.dashboard.controls;
+package uk.ac.gre.comp1549.dashboard.interfaces;
 
 public interface MyValues {
 

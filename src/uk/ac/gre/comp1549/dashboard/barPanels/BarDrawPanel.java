@@ -1,4 +1,4 @@
-package uk.ac.gre.comp1549.dashboard.controls;
+package uk.ac.gre.comp1549.dashboard.barPanels;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -11,6 +11,7 @@ import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.JPanel;
+import uk.ac.gre.comp1549.dashboard.interfaces.MyValues;
 
 /**
  * BarDrawPanel. Draw a horizontal bar indicator and show its current value

@@ -1,6 +1,5 @@
-package uk.ac.gre.comp1549.dashboard.controls;
+package uk.ac.gre.comp1549.dashboard.digitalDials;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -9,6 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Rectangle2D;
 import javax.swing.JPanel;
+import uk.ac.gre.comp1549.dashboard.interfaces.MyValues;
 
 /**
  * BarDrawPanel. Draw a horizontal bar indicator and show its current value
@@ -26,7 +26,7 @@ public class DigitalBarDrawPanel extends JPanel implements MyValues{
   
     
     public DigitalBarDrawPanel() { //Non Param constructor calls constructor with 5 params right below it
-        this(80, 20, 8, 100, 0);
+        this(100, 20, 8, 100, 0);
     }
     /**
      *
@@ -61,19 +61,19 @@ public class DigitalBarDrawPanel extends JPanel implements MyValues{
         g2.setPaint(Color.BLACK); //Sets color of bar to black to give a digital clock feel
         g2.fill(barx);
 
-        Font barFont = new Font("Unispace", Font.BOLD, 18); //Define digital like font to be used on bar
-        g2.setPaint(Color.cyan);
-        //g2.drawString(" amnt.", 92, 25);
+        Font barFont = new Font("Unispace", Font.BOLD, 20); //Define digital like font to be used on bar
+        g2.setPaint(Color.cyan); //Set colour of text on digital dial
+        g2.drawString("°C", 88, 24); //Position text onto dial to give digital look
         g2.setFont(barFont); //Set bar font
 
-        // draw the value indicator to show the current value
-        g2.drawString(String.valueOf(value * 100), 9, 25);
+        // draw the input from the text field to the digital dial
+        g2.drawString(String.valueOf(value * 1), 9, 25);
     }
 
    @Override
     public void setValue(int value) {
         // don't let the value go over the maximum for the bar.  But what about the minimum?
-        this.value = value > barMaxValue ? (int) barMaxValue : value < 0 ? 0 : value;
+        this.value = value > barMaxValue ? (int) barMaxValue : value;
         repaint(); // causes paintComponent() to be called
     }    
 }

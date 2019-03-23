@@ -1,8 +1,9 @@
-package uk.ac.gre.comp1549.dashboard.controls;
+package uk.ac.gre.comp1549.dashboard.barPanels;
 
 import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.border.BevelBorder;
+import uk.ac.gre.comp1549.dashboard.controls.MainPanel;
 
 /**
  * BarPanel. Container for BarDrawPanel to hold bar and label. If a label is not
@@ -15,9 +16,6 @@ public class BarPanel extends MainPanel {
 
     private BarDrawPanel bar; // the bar itself
     
-    /**
-     * Default constructor
-     */
     public BarPanel() {
         create();
     }

@@ -1,4 +1,4 @@
-package uk.ac.gre.comp1549.dashboard.controls;
+package uk.ac.gre.comp1549.dashboard.halfDials;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -11,6 +11,8 @@ import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import javax.swing.JPanel;
+import uk.ac.gre.comp1549.dashboard.interfaces.DrawPanelIF;
+import uk.ac.gre.comp1549.dashboard.interfaces.MyValues;
 
 public class HalfDialDrawPanel extends JPanel implements DrawPanelIF, MyValues {
 
